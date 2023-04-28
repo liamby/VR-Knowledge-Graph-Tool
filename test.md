@@ -1,3 +1,3 @@
-# Note 1
+# Title of Note 1
 
-This is regular text that's in my note [[Another Note]]
+This is regular text that's in my note [[Title of Note 2]]
