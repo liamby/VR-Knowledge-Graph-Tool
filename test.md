@@ -1,5 +1,3 @@
-# This Is The Title Of My Note
-
-Hello world!
+# Note 1
 
 This is regular text that's in my note [[Another Note]]
