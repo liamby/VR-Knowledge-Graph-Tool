@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Split IFrame Template</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		iframe {
+			border: none;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+            height: 100%;
+			transition: width 0.5s ease;
+		}
+		#frame1 {
+			left: 0;
+			z-index: 1;
+		}
+		#frame2 {
+			right: 0;
+			z-index: 2;
+		}
+		#toggle-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+			z-index: 3;
+		}
+	</style>
+	<script>
+		function toggleFrames() {
+			var frame1 = document.getElementById("frame1");
+			var frame2 = document.getElementById("frame2");
+			if (frame1.style.width == "0%") {
+				frame1.style.width = "100%";
+                frame1.style.height = "100%";
+				frame2.style.width = "0%";
+                frame2.style.height = "0%";
+			} else {
+				frame2.style.width = "100%";
+                frame2.style.height = "100%";
+				frame1.style.width = "0%";
+                frame1.style.height = "0%";
+			}
+		}
+	</script>
+</head>
+<body>
+	<iframe id="frame1" src="left.html"></iframe>
+	<iframe id="frame2" src="https://app.bangle.io/"></iframe>
+	<div id="toggle-btn" onclick="toggleFrames()">Toggle Frames</div>
+</body>
+</html>

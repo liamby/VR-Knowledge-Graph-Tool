@@ -1,31 +1,57 @@
 import os
 import re
 import json
+import glob
+
+def shorten_text(text):
+    words = text.split()[:15]
+    if len(words) < len(text.split()):
+        words.append('...')
+    return ' '.join(words)
+
+def remove_md_extension(filename):
+    return os.path.splitext(filename)[0]
 
 def get_file_contents(filepath):
-    with open(filepath, 'r') as f:
+    with open(filepath, encoding='utf-8') as f:
         return f.read()
 
 def get_references(text):
     return re.findall('\[\[(.*?)\]\]', text)
 
-def extract_title(contents):
+def extract_title(contents, fileNameNoExtension):
     title_match = re.search('# (.+)', contents)
     if title_match:
         return title_match.group(1)
     else:
-        return "ERROR"
+        return fileNameNoExtension
+
+def extract_text(contents, fileNameNoExtension):
+    title_match = re.search('# (.+)', contents)
+    if title_match:
+        start_index = title_match.end() + 1
+        end_index = contents.find('[[', start_index)
+        if end_index == -1:
+            end_index = len(contents)
+        return contents[start_index:end_index].strip()
+    else:
+        return fileNameNoExtension
 
 def parse_file(filepath):
     filename = os.path.basename(filepath)
-    contents = get_file_contents(filepath)
-    references = get_references(contents)
-    title = extract_title(contents)
+    rawContents = get_file_contents(filepath)
+    references = get_references(rawContents)
+    fileNameNoExtension = remove_md_extension(filename)
+    text = extract_text(rawContents, fileNameNoExtension)
+    shortenedText = shorten_text(text)
+    title = extract_title(rawContents, fileNameNoExtension)
     return {
         'id': title,
         'filename': filename,
-        'text': contents,
-        'references': references
+        'text': text,
+        'references': references,
+        'shortenedText': shortenedText,
+        'rawContents': rawContents
     }
 
 def get_node_id(node):
@@ -52,8 +78,14 @@ def create_graph(filepaths):
     }
 
 
-filepaths = ['note1.md', 'note2.md', 'note3.md']
-graph = create_graph(filepaths)
+md_files = []
+for root, directories, files in os.walk('./markdownFiles'):
+    for file in files:
+        if file.endswith('.md'):
+            md_files.append(os.path.join(root, file))
+
+graph = create_graph(md_files)
 
 with open("my_json_file.json", "w") as f:
     json.dump(graph, f)
+
