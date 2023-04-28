@@ -1,0 +1,36 @@
+{
+    "nodes": [
+        {
+            "id": "Title of Note 1",
+            "filename": "note1.md",
+            "text": "# Title of Note 1\n\nThis is regular text that's in my note [[Title of Note 2]]\n",
+            "references": [
+                "Title of Note 2"
+            ]
+        },
+        {
+            "id": "Title of Note 2",
+            "filename": "note2.md",
+            "text": "# Title of Note 2\n\nThis is also regular text that's in my note. This note doesn't reference anything. \n",
+            "references": []
+        },
+        {
+            "id": "Title of Note 3",
+            "filename": "note3.md",
+            "text": " # Title of Note 3\n\nThis is also regular text that's in my note. [[Title of Note 3]]\n",
+            "references": [
+                "Title of Note 3"
+            ]
+        }
+    ],
+    "links": [
+        {
+            "source": "Title of Note 1",
+            "target": "Title of Note 2"
+        },
+        {
+            "source": "Title of Note 3",
+            "target": "Title of Note 3"
+        }
+    ]
+}
