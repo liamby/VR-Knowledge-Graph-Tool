@@ -1,5 +1,7 @@
-# This 
+# This Is The Title Of My Note
 
 Hello world!
 
-This is text that 
+This is regular text  that's in my note
+
+ 
