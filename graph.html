@@ -1,0 +1,50 @@
+<head>
+  <style>
+    body {
+      margin: 0;
+    }		
+    #toggle-btn {
+			position: absolute;
+			top: 100px;
+			right: 10px;
+			cursor: pointer;
+			z-index: 3;
+		}
+  </style>
+
+  <script src="//unpkg.com/3d-force-graph-vr"></script>
+  <!--<script src="../../dist/3d-force-graph-vr.js"></script>-->
+</head>
+
+<body>
+  <div id="toggle-btn" onclick="exec()">Refresh</div>
+
+  <div id="3d-graph"></div>
+
+  <script>
+
+  </script>
+
+  <script>
+    const elem = document.getElementById('3d-graph');
+
+    const Graph = ForceGraphVR()(elem)
+      .jsonUrl('my_json_file.json')
+      .nodeAutoColorBy('user')
+      .nodeLabel(node => `${node.id}: ${node.shortenedText}`);
+
+    const { exec } = require('child_process');
+
+    let command = 'python jsonCreator.py';
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    });
+  </script>
+</body>

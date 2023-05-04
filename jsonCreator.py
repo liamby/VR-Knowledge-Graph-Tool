@@ -79,7 +79,7 @@ def create_graph(filepaths):
 
 
 md_files = []
-for root, directories, files in os.walk('./markdownFiles'):
+for root, directories, files in os.walk('./myMarkdownFiles'):
     for file in files:
         if file.endswith('.md'):
             md_files.append(os.path.join(root, file))
@@ -88,4 +88,4 @@ graph = create_graph(md_files)
 
 with open("my_json_file.json", "w") as f:
     json.dump(graph, f)
-
+    
